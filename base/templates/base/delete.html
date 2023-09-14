@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+<!--  -->
+{% block title %} ChatGo - 刪除 {% endblock title %}
+
+<!--  -->
+{% block content %}
+<div>
+  <form action="" method="POST">
+    {% csrf_token %}
+
+    <p>確定要刪除 "{{obj}}" ?</p>
+
+    <a href="{{request.META.HTTP_REFERER}}">取消</a>
+    <input type="submit" value="確定" />
+  </form>
+</div>
+
+{% endblock content %}

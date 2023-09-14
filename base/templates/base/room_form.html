@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+<!--  -->
+{% block title %} ChatGo - 聊天室 {% endblock title %}
+
+<!--  -->
+{% block content %}
+<div>
+  <form action="" method="POST">
+    {% csrf_token %}
+
+    <!-- Django 內建的 form 表單模組  -->
+    {{form.as_p}}
+    <input type="submit" value="發送" />
+  </form>
+</div>
+
+{% endblock content %}

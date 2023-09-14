@@ -1,0 +1,64 @@
+{% extends 'main.html' %}
+<!-- 繼承title -->
+{% block title %} ChatGo - {{room.name}} {% endblock title %}
+
+<!-- 繼承content -->
+{% block content %}
+<style>
+  .room-container {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+  }
+</style>
+
+<div class="room-container">
+  <div>
+    <h3>{{room.name}}</h3>
+
+    <span>{{room.description}}</span>
+
+    <div class="comment-wrapper">
+      <p>留言討論區</p>
+      <hr />
+
+      {% for message in room_messages %}
+      <div>
+        {% if request.user == message.user %}
+        <a href="{% url 'delete-message' message.id %}">刪除</a>
+        {% endif %}
+
+        <small>@{{message.user}} {{message.created|timesince}} ago</small>
+        <p>{{message.body}}</p>
+        <hr />
+      </div>
+      {% endfor %}
+      <!--  -->
+    </div>
+
+    <!-- 使用者登入才可留言 -->
+    {% if request.user.is_authenticated %}
+    <div class="comment-form">
+      <form action="" method="POST">
+        {% csrf_token %}
+
+        <!--  -->
+        <input type="text" name="body" placeholder="發表留言 ..." />
+      </form>
+    </div>
+    {% endif %}
+    <!--  -->
+  </div>
+
+  <div>
+    <h3>參與者</h3>
+    <hr />
+
+    {% for user in participants %}
+    <div>
+      <p>@{{user.username}}</p>
+    </div>
+    {% endfor %}
+    <!--  -->
+  </div>
+</div>
+{% endblock content %}

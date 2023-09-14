@@ -1,0 +1,14 @@
+<a href="/"> ChatGo </a>
+
+<form action="{% url 'home' %}" method="GET">
+  <input type="text" name="q" placeholder="搜尋 ..." />
+</form>
+
+{% if request.user.is_authenticated %}
+<span> Hello {{request.user}}</span>
+<a href="{% url 'logout' %}">登出</a>
+{% else %}
+<a href="{% url 'login' %}">登入</a>
+{% endif %}
+
+<hr />

@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+<!--  -->
+{% block title %} 登入 {% endblock title %}
+<!--  -->
+
+{% block content %}
+
+<!-- 登入 -->
+{% if page == 'login' %}
+<div>
+  <form action="" method="POST">
+    {% csrf_token %}
+
+    <label for="username">帳號:</label>
+    <input
+      type="text"
+      id="username"
+      name="username"
+      placeholder="Account / 會員帳號"
+    />
+
+    <label for="password">密碼:</label>
+    <input
+      type="password"
+      id="password"
+      name="password"
+      placeholder="password / 會員密碼"
+    />
+
+    <input type="submit" value="登入" />
+  </form>
+
+  <span>還沒註冊？</span>
+  <a href="{% url 'register' %}">註冊</a>
+</div>
+
+{% else %}
+<!-- 註冊 -->
+<div>
+  <form action="" method="POST">
+    {% csrf_token %}
+
+    <!-- Django 內建的註冊表單模組 -->
+    {{form.as_p}}
+    <input type="submit" value="註冊" />
+  </form>
+
+  <span>已註冊？</span>
+  <a href="{% url 'login' %}">登入</a>
+</div>
+
+{% endif %}
+<!--  -->
+{% endblock content %}
