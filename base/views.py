@@ -67,7 +67,7 @@ def home(request):
         Q(description__icontains=q) 
         )
     
-    topics = Topic.objects.all()
+    topics = Topic.objects.all()[0:5]
     room_count = rooms.count()
     # 取得篩選使用者的訊息狀態
     room_messages = Message.objects.filter(
@@ -212,3 +212,16 @@ def updateUser(request):
 
     return render(request, 'base/update_user.html', {'form': form})
 
+
+# 聊天室所有主題搜尋
+@login_required(login_url='login')
+def topicsPage(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    topics = Topic.objects.filter(name__icontains=q)
+    return render(request, 'base/topics.html', {'topics': topics})
+
+
+# 手機版 - 所有最新留言
+def activityPage(request):
+    room_messages = Message.objects.all()
+    return render(request, 'base/activity.html', {'room_messages': room_messages})

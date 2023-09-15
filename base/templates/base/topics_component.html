@@ -10,13 +10,13 @@
     </li>
     {% for topic in topics %}
     <li>
-      <a href="{% url 'home' %}?q={{topic.name}}"
-        >{{topic.name}}<span>{{topic.room_set.all.count}}</span></a
-      >
+      <a href="{% url 'home' %}?q={{topic.name}}">
+        {{topic.name}}<span>{{topic.room_set.all.count}}</span>
+      </a>
     </li>
     {% endfor %}
   </ul>
-  <a class="btn btn--link" href="topics.html">
+  <a class="btn btn--link" href="{% url 'topics' %}">
     More
     <svg
       version="1.1"
@@ -25,7 +25,7 @@
       height="32"
       viewBox="0 0 32 32"
     >
-      <title>chevron-down</title>
+      <title>搜尋更多</title>
       <path d="M16 21l-13-13h-3l16 16 16-16h-3l-13 13z"></path>
     </svg>
   </a>
