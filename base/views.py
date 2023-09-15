@@ -123,20 +123,32 @@ def deleteMessage(request, pk):
 
 
 # 新增聊天室 - 將 Django 管理員的表單拉到瀏覽器上使用
-# @login_required 
 @login_required(login_url='/login')
 def createRoom(request):
     form = RoomForm()
-    if request.method == 'POST':
-        # print(request.POST)          # 檢視取得表單傳送的資料
-        form = RoomForm(request.POST)
-        if form.is_valid():
-            room = form.save(commit=False)
-            room.host = request.user
-            room.save()
-            return redirect('home')
+    topics = Topic.objects.all()       # 加入自定義樣式，所以改寫取得 topic值方式
 
-    context = {'form': form}
+    if request.method == 'POST':
+        topic_name = request.POST.get('topic')                         # 取 from表單的 name屬性值
+        topic, created = Topic.objects.get_or_create(name=topic_name)  # 建立一個新的或取舊的 Topic 物件
+
+        # 建立聊天室
+        Room.objects.create(
+            host = request.user,
+            topic = topic,
+            name = request.POST.get('name'),                    # 這裡的 name是指取得 {{form.name}}
+            description = request.POST.get('description'),      # 這裡的 description是指取得 {{form.description}}
+        )
+
+        # 因為不使用原本模板的樣式做建立，所以這段都不需要，必須重新取回每一個發送的值
+        # form = RoomForm(request.POST)      
+        # if form.is_valid():
+        #     room = form.save(commit=False)
+        #     room.host = request.user
+        #     room.save()
+        return redirect('home')
+
+    context = {'form': form, 'topics': topics}
     return render(request, 'base/room_form.html', context)
 
 
@@ -145,18 +157,29 @@ def createRoom(request):
 def updateRoom(request, pk):
     room = Room.objects.get(id=pk)     # 取得特定 id 的聊天室
     form = RoomForm(instance=room)     # 將原始的資料增加回到表單上
+    topics = Topic.objects.all()       # 加入樣式，所以改寫取得topic資料方式
     
     # 使用者判斷 - 必須為使用者建立的物件才可以進行修改
     if request.user != room.host:
         return HttpResponse('沒有權限可進行更新')
 
     if request.method == 'POST':
-        form = RoomForm(request.POST, instance=room)   # 取得選取的聊天室資料
-        if form.is_valid():
-            form.save()
-            return redirect('home')
+        topic_name = request.POST.get('topic')                         # 取 from表單的 name屬性值
+        topic, created = Topic.objects.get_or_create(name=topic_name)  # 建立一個新的或取舊的 Topic 物件
 
-    context = {'form': form}
+        # 更新聊天室的值
+        room.topic= topic
+        room.name = request.POST.get('name')
+        room.description = request.POST.get('description')
+        room.save()
+        
+        # 因為不使用原本模板的樣式做更新，所以下面這段都不需要，必須重新取回每一個發送的值
+        # form = RoomForm(request.POST, instance=room)   
+        # if form.is_valid():
+        #     form.save()
+        return redirect('home')
+
+    context = {'form': form, 'topics': topics, 'room': room}
     return render(request, 'base/room_form.html', context)
 
 
