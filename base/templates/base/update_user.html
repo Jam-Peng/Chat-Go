@@ -1,16 +1,15 @@
 {% extends 'main.html' %}
 <!--  -->
-{% block title %} ChatGo - 刪除 {% endblock title %}
-
+{% block title %} ChatGo - 更新個人設定 {% endblock title %}
 <!--  -->
-{% block content %}
 
-<main class="delete-item layout">
+{% block content %}
+<main class="update-account layout">
   <div class="container">
     <div class="layout__box">
       <div class="layout__boxHeader">
         <div class="layout__boxTitle">
-          <a href="{{request.META.HTTP_REFERER}}">
+          <a href="{% url 'home' %}">
             <svg
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -18,27 +17,38 @@
               height="32"
               viewBox="0 0 32 32"
             >
-              <title>回上頁</title>
+              <title>回首頁</title>
               <path
                 d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"
               ></path>
             </svg>
           </a>
-          <h3>回上頁</h3>
+          <h3>回首頁</h3>
         </div>
       </div>
+
       <div class="layout__body">
         <form class="form" action="" method="POST">
           {% csrf_token %}
+          <!--  -->
+
+          {% for field in form %}
           <div class="form__group">
-            <p>確定要刪除 " {{obj}} "？</p>
+            <label for="profile_pic">{{field.label}}</label>
+            {{field}}
           </div>
-          <div class="for__group">
-            <input class="btn btn--main" type="submit" value="確定" />
+          {% endfor %}
+
+          <div class="form__action">
+            <a class="btn btn--dark" href="{{request.META.HTTP_REFERER}}">
+              取消
+            </a>
+            <button class="btn btn--main" type="submit">更新</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </main>
+
 {% endblock content %}

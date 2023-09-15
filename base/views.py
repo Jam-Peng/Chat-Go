@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .models import Room, Topic, Message
-from .forms import RoomForm
+from .forms import RoomForm, UserForm
 
 
 def loginPage(request):
@@ -172,7 +172,7 @@ def updateRoom(request, pk):
         room.name = request.POST.get('name')
         room.description = request.POST.get('description')
         room.save()
-        
+
         # 因為不使用原本模板的樣式做更新，所以下面這段都不需要，必須重新取回每一個發送的值
         # form = RoomForm(request.POST, instance=room)   
         # if form.is_valid():
@@ -197,4 +197,18 @@ def deleteRoom(request, pk):
         return redirect('home')
     return render(request, 'base/delete.html', {'obj': room})
 
+
+# 更新使用者
+@login_required(login_url='login')
+def updateUser(request):
+    user = request.user                     # 取得當前使用者
+    form = UserForm(instance=user)          # 將當前使用者資料加到表單上
+
+    if request.method == 'POST':
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('user-profile', pk=user.id)
+
+    return render(request, 'base/update_user.html', {'form': form})
 

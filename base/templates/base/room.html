@@ -156,7 +156,7 @@
       <!-- 使用者登入才可留言 -->
       {% if request.user.is_authenticated %}
       <div class="room__message">
-        <form action="#" method="POST">
+        <form action="" method="POST">
           {% csrf_token %}
 
           <input type="text" name="body" placeholder="留言 ..." />
