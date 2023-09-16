@@ -39,9 +39,17 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     
     'base.apps.BaseConfig',
+
+    # 使用 API需要設定應用程式
+    'rest_framework',
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
+    # 使用 CORS需要設定的 MIDDLEWARE
+    "corsheaders.middleware.CorsMiddleware",
+
+    # 原本內建的 MIDDLEWARE
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -49,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
 ]
 
 ROOT_URLCONF = "chatroom.urls"
@@ -129,3 +138,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+CORS_ALLOW_ALL_ORIGINS = True
