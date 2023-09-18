@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,28 +8,42 @@
     <title>{% block title %}{% endblock %}</title>
     <link
       rel="shortcut icon"
-      href="{% static 'images/favicon.ico' %}"
+      href="{% static 'images/chatgo_favicon.ico' %}"
       type="image/x-icon"
     />
-    <link rel="stylesheet" href="{% static 'styles/style.css' %}" />
+
+    <!-- Material Icons -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <!-- 手刻CSS -->
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}" />
+
+    <!-- TailwindCSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
 
-  <body>
-    {% include 'navbar.html' %}
+  <body class="bg-gray-800 text-gray-300 h-full">
+    <div class="container mx-auto text-[0.95rem]">
+      {% include 'navbar.html' %}
 
-    <!-- 訊息回傳 -->
-    {% if messages %}
-    <ul class="messages">
-      {% for message in messages %}
-      <li>{{ message }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %}
+      <!--  -->
+      {% block content %}
+      <!-- 繼承顯示內容 -->
+      {% endblock %}
+    </div>
+    <!-- <script src="{% static 'js/script.js' %}"></script> -->
+    <script>
+      const dropdownButton = document.querySelector("#dropdown-button");
+      const dropdownMenu = document.querySelector(".dropdown-menu");
 
-    <!--  -->
-    {% block content %}
-    <!-- 繼承顯示內容 -->
-    {% endblock %}
-    <script src="{% static 'js/script.js' %}"></script>
+      if (dropdownButton) {
+        dropdownButton.addEventListener("click", (e) => {
+          dropdownMenu.classList.toggle("show");
+        });
+      }
+    </script>
   </body>
 </html>

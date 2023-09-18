@@ -4,81 +4,75 @@
 
 <!--  -->
 {% block content %}
-<!-- <style>
-  .home-container {
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-  }
-</style> -->
 
-<main class="layout layout--3">
-  <div class="container">
-    <div>
+<section>
+  <div class="flex pb-6 sm:pt-2">
+    <div class="hidden sm:block w-3/12 px-2">
       <!-- 聊天室的所有主題 -->
       {% include 'base/topics_component.html' %}
     </div>
 
     <!-- 所有聊天室 -->
-    <div class="roomList">
+    <div class="w-full sm:w-6/12 space-y-4 sm:space-y-0">
       <!-- 手機版 - 新增主題和最新留言連結 -->
-      <div class="mobile-menu">
-        <form class="header__search" action="{% url 'home' %}" method="GET">
-          <label>
-            <svg
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
+      <div class="block sm:hidden space-y-4">
+        <form class="" action="{% url 'home' %}" method="GET">
+          <div class="relative flex flex-wrap justify-center">
+            <button
+              class="flex items-center rounded-l bg-slate-500 pl-2 py-1.5"
+              type="submit"
             >
-              <title>search</title>
-              <path
-                d="M32 30.586l-10.845-10.845c1.771-2.092 2.845-4.791 2.845-7.741 0-6.617-5.383-12-12-12s-12 5.383-12 12c0 6.617 5.383 12 12 12 2.949 0 5.649-1.074 7.741-2.845l10.845 10.845 1.414-1.414zM12 22c-5.514 0-10-4.486-10-10s4.486-10 10-10c5.514 0 10 4.486 10 10s-4.486 10-10 10z"
-              ></path>
-            </svg>
-            <input type="text" name="q" placeholder="搜尋聊天室 ..." />
-          </label>
+              <i class="material-icons text-[1.8rem]"> search </i>
+            </button>
+
+            <input
+              name="q"
+              type="text"
+              class="w-9/12 sm:w-11/12 placeholder:text-[0.9rem] bg-slate-500 focus:outline-none rounded-r px-1"
+              placeholder="搜尋聊天室 ..."
+            />
+          </div>
         </form>
-        <div class="mobile-menuItems">
-          <a class="btn btn--main btn--pill" href="{% url 'topics' %}">
-            聊天室主題
+
+        <div class="flex items-center justify-evenly">
+          <a
+            class="px-4 py-2 border border-cyan-400 rounded-lg"
+            href="{% url 'topics' %}"
+          >
+            <span class="text-cyan-400">搜尋主題</span>
           </a>
-          <a class="btn btn--main btn--pill" href="{% url 'activity' %}">
-            最新留言
+          <a
+            class="px-4 py-2 border border-cyan-400 rounded-lg"
+            href="{% url 'activity' %}"
+          >
+            <span class="text-cyan-400">最新留言</span>
           </a>
         </div>
       </div>
 
-      <div class="roomList__header">
-        <div>
+      <div class="flex items-center justify-between px-8 sm:px-4 pb-2">
+        <div class="text-[0.88rem]">
           <h2>ChatGo</h2>
-          <p>{{rooms.count}} 間聊天室</p>
+          <p class="text-gray-500">{{rooms.count}} 間聊天室</p>
         </div>
-        <a class="btn btn--main" href="{% url 'create-room' %}">
-          <svg
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-          >
-            <title>新增聊天室</title>
-            <path
-              d="M16.943 0.943h-1.885v14.115h-14.115v1.885h14.115v14.115h1.885v-14.115h14.115v-1.885h-14.115v-14.115z"
-            ></path>
-          </svg>
-          新增聊天室
-        </a>
+        <div
+          class="border border-cyan-400 rounded-lg px-3 py-1.5 text-cyan-400 hover:border-cyan-300 hover:text-cyan-300"
+        >
+          <a class="flex items-center space-x-1" href="{% url 'create-room' %}">
+            <i class="material-icons"> add </i>
+            <span>新增聊天室</span>
+          </a>
+        </div>
       </div>
 
       {% include 'base/feed_component.html' %}
     </div>
 
-    <div>
+    <div class="hidden sm:block w-3/12 px-4">
       <!-- 使用者最新留言訊息狀態 -->
       {% include 'base/activity_component.html' %}
     </div>
   </div>
-</main>
+</section>
 
 {% endblock content %}

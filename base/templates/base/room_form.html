@@ -1,49 +1,41 @@
 {% extends 'main.html' %}
 <!--  -->
-{% block title %} ChatGo - 聊天室 {% endblock title %}
+{% block title %} ChatGo - 新增 / 更新 聊天室 {% endblock title %}
 
 <!--  -->
 {% block content %}
 
-<main class="create-room layout">
-  <div class="container">
-    <div class="layout__box">
-      <div class="layout__boxHeader">
-        <div class="layout__boxTitle">
-          <a href="{% url 'home' %}">
-            <svg
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-            >
-              <title>回首頁</title>
-              <path
-                d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"
-              ></path>
-            </svg>
+<section class="">
+  <div class="py-2 sm:py-8 flex justify-center">
+    <div
+      class="w-11/12 sm:w-6/12 border border-gray-800 rounded-lg overflow-hidden"
+    >
+      <div class="py-2 px-4 bg-teal-600">
+        <div class="flex items-center space-x-2">
+          <a href="{% url 'home' %}" class="flex">
+            <i class="material-icons text-[1.4rem]"> west </i>
           </a>
-          <h3>建立 / 更新 - 聊天室</h3>
+          <span>建立 / 更新 - 聊天室</span>
         </div>
       </div>
 
       <!-- 建立 / 更新聊天室表單 -->
-      <div class="layout__body">
-        <form class="form" action="" method="POST">
+      <div class="bg-gray-700 px-4 py-6 space-y-2">
+        <form class="space-y-4" action="" method="POST">
           {% csrf_token %}
 
-          <div class="form__group">
-            <label for="room_topic">主題</label>
+          <div class="flex flex-col space-y-2">
+            <label>主題</label>
             <input
               type="text"
               name="topic"
               value="{{room.topic.name}}"
               list="topic-list"
               required
+              class="placeholder:text-[0.9rem] bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
             />
             <datalist id="topic-list">
-              <select id="room_topic">
+              <select>
                 {% for topic in topics %}
                 <option value="{{topic.name}}">{{topic.name}}</option>
                 {% endfor %}
@@ -51,26 +43,49 @@
             </datalist>
           </div>
 
-          <div class="form__group">
-            <label for="room_name">名稱</label>
-            {{form.name}}
+          <div class="flex flex-col space-y-2">
+            <label for="name">名稱</label>
+            <input
+              id="name"
+              name="name"
+              value="{{room.name}}"
+              type="text"
+              class="bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
+            />
           </div>
 
-          <div class="form__group">
-            <label for="room_description">內容描述</label>
-            {{form.description}}
-          </div>
-
-          <div class="form__action">
-            <a class="btn btn--dark" href="{{request.META.HTTP_REFERER}}"
-              >取消</a
+          <div class="flex flex-col space-y-2">
+            <label for="description">內容</label>
+            <textarea
+              id="description"
+              name="description"
+              cols="30"
+              rows="10"
+              class="bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
             >
-            <button class="btn btn--main" type="submit">確定</button>
+{{room.description}}</textarea
+            >
+          </div>
+
+          <div class="py-4 flex justify-evenly">
+            <a
+              class="cursor-pointer w-4/12 border border-cyan-400 text-cyan-400 rounded-md px-4 py-1 text-center hover:border-cyan-300 hover:text-cyan-300"
+              href="{{request.META.HTTP_REFERER}}"
+            >
+              <span>取消</span>
+            </a>
+            <button
+              class="w-4/12 border border-cyan-400 text-cyan-400 rounded-md px-4 py-1 cursor-pointer hover:border-cyan-300 hover:text-cyan-300"
+              type="submit"
+            >
+              確定
+            </button>
           </div>
         </form>
+        <!--  -->
       </div>
     </div>
   </div>
-</main>
+</section>
 
 {% endblock content %}

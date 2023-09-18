@@ -4,65 +4,68 @@
 
 <!--  -->
 {% block content %}
-<main class="create-room layout">
-  <div class="container">
-    <div class="layout__box">
-      <div class="layout__boxHeader">
-        <div class="layout__boxTitle">
-          <a href="{% url 'home' %}">
-            <svg
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-            >
-              <title>回首頁</title>
-              <path
-                d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"
-              ></path>
-            </svg>
+<section>
+  <div class="py-2 sm:py-8 flex justify-center">
+    <div
+      class="w-11/12 sm:w-6/12 border border-gray-800 rounded-lg overflow-hidden"
+    >
+      <div class="py-2 px-4 bg-teal-600">
+        <div class="flex items-center space-x-2">
+          <a href="{% url 'home' %}" class="flex">
+            <i class="material-icons text-[1.4rem]"> west </i>
           </a>
-          <h3>回首頁</h3>
+          <span>回首頁</span>
         </div>
       </div>
 
-      <div class="topics-page layout__body">
-        <form class="header__search" accept="" method="GET">
-          <label>
-            <svg
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
+      <div
+        class="bg-gray-700 px-4 py-6 space-y-2 relative overflow-y-auto h-[670px] sm:h-[640px]"
+      >
+        <form class="" method="GET">
+          <div class="relative flex flex-wrap justify-center">
+            <button
+              class="flex items-center rounded-l bg-slate-500 pl-2 py-1.5"
+              type="submit"
             >
-              <title>search</title>
-              <path
-                d="M32 30.586l-10.845-10.845c1.771-2.092 2.845-4.791 2.845-7.741 0-6.617-5.383-12-12-12s-12 5.383-12 12c0 6.617 5.383 12 12 12 2.949 0 5.649-1.074 7.741-2.845l10.845 10.845 1.414-1.414zM12 22c-5.514 0-10-4.486-10-10s4.486-10 10-10c5.514 0 10 4.486 10 10s-4.486 10-10 10z"
-              ></path>
-            </svg>
-            <input name="q" type="text" placeholder="搜尋主題 ..." />
-          </label>
+              <i class="material-icons text-[1.8rem]"> search </i>
+            </button>
+
+            <input
+              name="q"
+              type="text"
+              class="w-10/12 sm:w-11/12 placeholder:text-[0.9rem] bg-slate-500 focus:outline-none rounded-r px-1"
+              placeholder="搜尋主題 ..."
+            />
+          </div>
         </form>
 
-        <ul class="topics__list">
-          <li>
-            <a href="{%url 'topics' %}" class="active">
-              全部 <span>{{topics.count}}</span>
+        <ul class="p-2">
+          <li
+            class="py-3 border-b border-gray-600 flex justify-between hover:text-cyan-400"
+          >
+            <a href="{%url 'topics' %}" class="">
+              <span>全部</span>
             </a>
+            <span class="px-2 bg-gray-500 border border-gray-500 rounded-lg">
+              {{topics.count}}
+            </span>
           </li>
           {% for topic in topics %}
-          <li>
+          <li
+            class="py-3 border-b border-gray-600 flex justify-between hover:text-cyan-400"
+          >
             <a href="{% url 'home' %}?q={{topic.name}}">
-              {{topic.name}} <span>{{topic.room_set.all.count}}</span>
+              <span>{{topic.name}}</span>
             </a>
+            <span class="px-2 bg-gray-500 border border-gray-500 rounded-lg">
+              {{topic.room_set.all.count}}
+            </span>
           </li>
           {% endfor %}
         </ul>
       </div>
     </div>
   </div>
-</main>
+</section>
 
 {% endblock content %}

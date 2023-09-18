@@ -4,32 +4,23 @@
 <!--  -->
 
 {% block content %}
-<main class="update-account layout">
-  <div class="container">
-    <div class="layout__box">
-      <div class="layout__boxHeader">
-        <div class="layout__boxTitle">
-          <a href="{% url 'home' %}">
-            <svg
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-            >
-              <title>回首頁</title>
-              <path
-                d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"
-              ></path>
-            </svg>
+<section>
+  <div class="py-2 sm:py-8 flex justify-center">
+    <div
+      class="w-11/12 sm:w-6/12 border border-gray-800 rounded-lg overflow-hidden"
+    >
+      <div class="py-2 px-4 bg-teal-600">
+        <div class="flex items-center space-x-2">
+          <a href="{% url 'home' %}" class="flex">
+            <i class="material-icons text-[1.4rem]"> west </i>
           </a>
-          <h3>回首頁</h3>
+          <span>回首頁</span>
         </div>
       </div>
 
-      <div class="layout__body">
+      <div class="bg-gray-700 px-4 py-6 space-y-2">
         <form
-          class="form"
+          class="space-y-4"
           action=""
           method="POST"
           enctype="multipart/form-data"
@@ -37,23 +28,93 @@
           {% csrf_token %}
           <!--  -->
 
-          {% for field in form %}
-          <div class="form__group">
+          <!-- {% for field in form %}
+          <div class="">
             <label for="profile_pic">{{field.label}}</label>
             {{field}}
           </div>
-          {% endfor %}
+          {% endfor %} -->
 
-          <div class="form__action">
-            <a class="btn btn--dark" href="{{request.META.HTTP_REFERER}}">
-              取消
+          <div class="flex items-center space-x-2">
+            <span>目前使用的照片</span>
+            <span
+              class="px-3 py-1 text-cyan-400 border border-cyan-400 rounded-md"
+            >
+              {{user.avatar}}
+            </span>
+          </div>
+          <div class="flex flex-col space-y-2">
+            <label for="avatar">更新大頭照</label>
+            <input
+              id="avatar"
+              name="avatar"
+              value="{{user.avatar}}"
+              type="file"
+              class="bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
+            />
+          </div>
+
+          <div class="flex flex-col space-y-2">
+            <label for="name">名字</label>
+            <input
+              id="name"
+              name="name"
+              value="{{user.name}}"
+              type="text"
+              class="bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
+            />
+          </div>
+          <div class="flex flex-col space-y-2">
+            <label for="username">帳號</label>
+            <input
+              id="username"
+              name="username"
+              value="{{user.username}}"
+              type="text"
+              class="bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
+            />
+          </div>
+          <div class="flex flex-col space-y-2">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              value="{{user.email}}"
+              type="email"
+              class="bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
+            />
+          </div>
+          <div class="flex flex-col space-y-2">
+            <label for="bio">簡介</label>
+            <textarea
+              id="bio"
+              name="bio"
+              cols="30"
+              rows="10"
+              class="bg-slate-500 focus:outline-none rounded-md px-2 py-1.5 relative overflow-y-auto h-[160px] sm:h-[100px]"
+            >
+{{user.bio}}</textarea
+            >
+          </div>
+
+          <div class="sm:py-4 flex justify-evenly">
+            <a
+              class="cursor-pointer w-4/12 border border-cyan-400 text-cyan-400 rounded-md px-4 py-1 text-center hover:border-cyan-300 hover:text-cyan-300"
+              href="{{request.META.HTTP_REFERER}}"
+            >
+              <span>取消</span>
             </a>
-            <button class="btn btn--main" type="submit">更新</button>
+            <button
+              class="w-4/12 border border-cyan-400 text-cyan-400 rounded-md px-4 py-1 cursor-pointer hover:border-cyan-300 hover:text-cyan-300"
+              type="submit"
+            >
+              更新
+            </button>
           </div>
         </form>
       </div>
     </div>
   </div>
-</main>
+</section>
 
 {% endblock content %}

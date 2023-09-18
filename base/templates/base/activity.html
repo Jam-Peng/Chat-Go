@@ -4,79 +4,73 @@
 
 <!--  -->
 {% block content %}
-<main class="layout">
-  <div class="container">
-    <div class="layout__box">
-      <div class="layout__boxHeader">
-        <div class="layout__boxTitle">
-          <a href="{% url 'home' %}">
-            <svg
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
-            >
-              <title>回首頁</title>
-              <path
-                d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z"
-              ></path>
-            </svg>
+<section>
+  <div class="py-2 sm:py-8 flex justify-center">
+    <div
+      class="w-11/12 sm:w-6/12 border border-gray-800 rounded-lg overflow-hidden"
+    >
+      <div class="py-2 px-4 bg-teal-600">
+        <div class="flex items-center space-x-2">
+          <a href="{% url 'home' %}" class="flex">
+            <i class="material-icons text-[1.4rem]"> west </i>
           </a>
           <h3>回首頁</h3>
         </div>
       </div>
 
-      <div class="activities-page layout__body">
+      <div
+        class="p-4 space-y-4 bg-gray-700 relative overflow-y-auto h-[670px] sm:h-[640px]"
+      >
         {% for message in room_messages %}
-        <div class="activities__box">
-          <div class="activities__boxHeader roomListRoom__header">
-            <a
-              href="{% url 'user-profile' message.user.id %}"
-              class="roomListRoom__author"
-            >
-              <div class="avatar avatar--small">
-                <img src="{{message.user.avatar.url}}" />
+        <div class="p-4 space-y-2 border-2 border-gray-500 rounded-lg">
+          <div class="flex justify-between">
+            <div class="flex items-center space-x-2">
+              <div class="border rounded-full border-cyan-400 w-[2rem]">
+                <a href="{% url 'user-profile' message.user.id %}">
+                  <img
+                    src="{{message.user.avatar.url}}"
+                    class="border rounded-full"
+                  />
+                </a>
               </div>
-              <p>
-                @{{message.user.username}}
+
+              <div class="text-[0.75rem] flex flex-col">
+                <a href="{% url 'user-profile' message.user.id %}" class="">
+                  <span class="text-cyan-400">{{message.user.username}}</span>
+                </a>
                 <span>{{message.created|timesince}} ago</span>
-              </p>
-            </a>
+              </div>
+            </div>
 
             {% if request.user == message.user %}
-            <div class="roomListRoom__actions">
+            <div>
               <a href="{% url 'delete-message' message.id %}">
-                <svg
-                  version="1.1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                >
-                  <title>刪除</title>
-                  <path
-                    d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z"
-                  ></path>
-                </svg>
+                <i class="material-icons text-[1.4rem] text-gray-400">
+                  clear
+                </i>
               </a>
             </div>
             {% endif %}
             <!--  -->
           </div>
 
-          <div class="activities__boxContent">
-            <p>
-              回覆 -
-              <a href="{% url 'room' message.room.id %}">{{message.room}}</a>
-            </p>
-            <div class="activities__boxRoomContent">{{message.body}}</div>
+          <div class="text-[.88rem] space-y-2">
+            <div>
+              <span>回覆 -</span>
+              <a href="{% url 'room' message.room.id %}" class="text-cyan-400">
+                {{message.room}}
+              </a>
+            </div>
+
+            <div class="p-2 border border-gray-800 rounded-md bg-gray-800">
+              <span>{{message.body}}</span>
+            </div>
           </div>
         </div>
         {% endfor %}
       </div>
     </div>
   </div>
-</main>
+</section>
 
 {% endblock content %}

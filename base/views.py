@@ -5,34 +5,36 @@ from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages                        # 傳遞訊息套件
+# from django.contrib import messages                        # 傳遞訊息套件
 from .models import Room, Topic, Message, User
 from .forms import RoomForm, UserForm, MyUserCreationForm
 
 
 def loginPage(request):
     page = 'login'
-    if request.user.is_authenticated:    # 如果已經登入，想要使用手動進入login/頁面，就會被重新導回首頁
-        return redirect('home')
+    login_message = ""
 
+    if request.user.is_authenticated:      # 如果已經登入，想要使用手動進入login/頁面，就會被重新導回首頁
+        return redirect('home')
+    
     if request.method == 'POST':
         email = request.POST.get('email').lower()
         password = request.POST.get('password')
-        
-        try:
-            user = User.objects.get(email=email)
-        except:
-            messages.error(request, "帳號不存在")
+        user = User.objects.filter(email=email)
 
-        user = authenticate(request, email=email, password=password)
-
-        if user is not None:
-            login(request, user)
-            return redirect('home')
+        if email == "" or password == "":
+            login_message = "帳號和密碼不能留空"
+        elif not user:
+            login_message = "帳號或密碼錯誤"
         else:
-            messages.error(request, "帳號或密碼錯誤")
+            user = authenticate(request, email=email, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home') 
+            else:
+                login_message = "帳號或密碼錯誤" 
 
-    context = {'page': page}
+    context = {'page': page, 'login_message': login_message}
     return render(request, 'base/login_register.html', context)
 
 
@@ -44,18 +46,42 @@ def logoutUser(request):
 def registerPage(request):
     form = MyUserCreationForm()
 
-    if request.method == 'POST':
-        form = MyUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.username = user.username.lower()
-            user.save()
-            login(request, user)     # 註冊後直接進行登入
-            return redirect('home')
-        else:
-            messages.error(request, "帳號已註冊")
+    # 使用自定義表單 - 缺點在html的標單樣式不好修改
+    # if request.method == 'POST':
+    #     form = MyUserCreationForm(request.POST)
+    #     if form.is_valid():
+    #         user = form.save(commit=False)
+    #         user.username = user.username.lower()
+    #         user.save()
+    #         login(request, user)     # 註冊後直接進行登入
+    #         return redirect('home')
+    #     else:
+    #         messages.error(request, "帳號已註冊")
 
-    return render(request, 'base/login_register.html', {'form': form})
+    sigin_message = ""
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        email = request.POST.get("email").lower()
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
+
+        if username == '' and email == '' and password1 == '' and password2 == '':
+            sigin_message = "請正確填寫資料"
+        if password1 != password2:
+            sigin_message = "請確認密碼相同"
+        elif User.objects.filter(email = email):
+            sigin_message = "帳號已註冊"
+        else:
+            user = User.objects.create_user(
+                username = username, 
+                email = email, 
+                password = password1
+            )
+            user.save()
+            login(request, user)     
+            return redirect('home')
+
+    return render(request, 'base/login_register.html', {'form': form, 'sigin_message': sigin_message})
 
 
 def home(request):
@@ -159,13 +185,14 @@ def updateRoom(request, pk):
     form = RoomForm(instance=room)     # 將原始的資料增加回到表單上
     topics = Topic.objects.all()       # 加入樣式，所以改寫取得topic資料方式
     
+
     # 使用者判斷 - 必須為使用者建立的物件才可以進行修改
     if request.user != room.host:
         return HttpResponse('沒有權限可進行更新')
 
     if request.method == 'POST':
-        topic_name = request.POST.get('topic')                         # 取 from表單的 name屬性值
-        topic, created = Topic.objects.get_or_create(name=topic_name)  # 建立一個新的或取舊的 Topic 物件
+        topic_name = request.POST.get('topic')                           # 取 from表單的 name屬性值
+        topic, created = Topic.objects.get_or_create(name=topic_name)    # 建立一個新的或取舊的 Topic 物件
 
         # 更新聊天室的值
         room.topic= topic
@@ -204,13 +231,25 @@ def updateUser(request):
     user = request.user                     # 取得當前使用者
     form = UserForm(instance=user)          # 將當前使用者資料加到表單上
 
-    if request.method == 'POST':
-        form = UserForm(request.POST, request.FILES, instance=user)
-        if form.is_valid():
-            form.save()
-            return redirect('user-profile', pk=user.id)
+    # 使用模組的表單更新
+    # if request.method == 'POST':
+    #     form = UserForm(request.POST, request.FILES, instance=user)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('user-profile', pk=user.id)
 
-    return render(request, 'base/update_user.html', {'form': form})
+    # 使用自定義的表單取值更新
+    if request.method == 'POST':
+        form.name = request.POST.get('name')
+        form.username = request.POST.get('username')
+        form.email = request.POST.get('email')
+        form.bio = request.POST.get('bio')
+        form = UserForm(request.POST, request.FILES, instance=user)
+
+        form.save()
+        return redirect('user-profile', pk=user.id)
+    
+    return render(request, 'base/update_user.html', {'form': form, 'user': user})
 
 
 # 聊天室所有主題搜尋

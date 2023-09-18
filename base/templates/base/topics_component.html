@@ -1,32 +1,36 @@
-<div class="topics">
-  <div class="topics__header">
+<div class="space-y-4 pr-4">
+  <div class="text-[1rem]">
     <h2>聊天室主題</h2>
   </div>
-  <ul class="topics__list">
-    <li>
-      <a href="{% url 'home' %}" class="active"
-        >全部<span>{{topics.count}}</span></a
-      >
+
+  <ul class="space-y-4">
+    <li class="hover:text-cyan-400">
+      <div class="flex items-center justify-between">
+        <a href="{% url 'home' %}" class="">
+          <span> 全部 </span>
+        </a>
+        <span class="px-2 bg-gray-700 border border-gray-700 rounded-lg">
+          {{topics.count}}
+        </span>
+      </div>
     </li>
     {% for topic in topics %}
-    <li>
-      <a href="{% url 'home' %}?q={{topic.name}}">
-        {{topic.name}}<span>{{topic.room_set.all.count}}</span>
-      </a>
+    <li class="hover:text-cyan-400">
+      <div class="flex items-center justify-between">
+        <a href="{% url 'home' %}?q={{topic.name}}">
+          <span>{{topic.name}}</span>
+        </a>
+        <span class="px-2 bg-gray-700 border border-gray-700 rounded-lg">
+          {{topic.room_set.all.count}}
+        </span>
+      </div>
     </li>
     {% endfor %}
   </ul>
-  <a class="btn btn--link" href="{% url 'topics' %}">
-    More
-    <svg
-      version="1.1"
-      xmlns="http://www.w3.org/2000/svg"
-      width="32"
-      height="32"
-      viewBox="0 0 32 32"
-    >
-      <title>搜尋更多</title>
-      <path d="M16 21l-13-13h-3l16 16 16-16h-3l-13 13z"></path>
-    </svg>
-  </a>
+
+  <div>
+    <a class="btn btn--link" href="{% url 'topics' %}">
+      <span class="text-[0.88rem] text-cyan-400"> More </span>
+    </a>
+  </div>
 </div>

@@ -5,66 +5,62 @@
 
 {% block content %}
 
-<main class="auth layout">
+<section>
   {% if page == 'login' %}
 
   <!-- 登入 -->
-  <div class="container">
-    <div class="layout__box">
-      <div class="layout__boxHeader">
-        <div class="layout__boxTitle">
-          <h3>ChatGo</h3>
+  <div class="py-2 sm:py-8 flex justify-center">
+    <div
+      class="w-11/12 sm:w-5/12 border border-gray-800 rounded-lg overflow-hidden"
+    >
+      <div class="py-2 px-4 bg-teal-600">
+        <div class="text-center">
+          <span>ChatGo</span>
         </div>
       </div>
 
-      <div class="layout__body">
-        <h2 class="auth__tagline">使用者登入</h2>
-        <form class="form" action="" method="POST">
+      <div class="flex flex-col space-y-2 bg-gray-700 px-10 py-4">
+        <span class="text-center text-cyan-400 text-[1.1rem]">使用者登入</span>
+        <span class="text-rose-500">{{login_message}}</span>
+        <form class="space-y-6" action="" method="POST">
           {% csrf_token %}
 
-          <div class="form__group form__group">
-            <label for="username">使用者帳號</label>
+          <div class="flex flex-col space-y-2">
+            <label for="username">帳號</label>
             <input
               id="username"
               name="email"
               type="email"
               placeholder="Account / Email 登入"
+              class="placeholder:text-[0.9rem] bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
             />
           </div>
-          <div class="form__group">
-            <label for="password">使用者密碼</label>
+          <div class="flex flex-col space-y-2">
+            <label for="password">密碼</label>
             <input
               id="password"
               name="password"
               type="password"
               placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+              class="bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
             />
           </div>
 
-          <button class="btn btn--main" type="submit">
-            <svg
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
+          <div class="text-center pt-4">
+            <button
+              class="border border-cyan-400 text-cyan-400 rounded-md px-4 py-1 cursor-pointer hover:border-cyan-300 hover:text-cyan-300 w-full"
+              type="submit"
             >
-              <title>Login</title>
-              <path
-                d="M27 12h-1v-2c0-5.514-4.486-10-10-10s-10 4.486-10 10v2h-1c-0.553 0-1 0.447-1 1v18c0 0.553 0.447 1 1 1h22c0.553 0 1-0.447 1-1v-18c0-0.553-0.447-1-1-1zM8 10c0-4.411 3.589-8 8-8s8 3.589 8 8v2h-16v-2zM26 30h-20v-16h20v16z"
-              ></path>
-              <path
-                d="M15 21.694v4.306h2v-4.306c0.587-0.348 1-0.961 1-1.694 0-1.105-0.895-2-2-2s-2 0.895-2 2c0 0.732 0.413 1.345 1 1.694z"
-              ></path>
-            </svg>
-
-            登入
-          </button>
+              <span>登入</span>
+            </button>
+          </div>
         </form>
 
-        <div class="auth__action">
-          <p>尚未註冊？</p>
-          <a href="{% url 'register' %}" class="btn btn--link">註冊</a>
+        <div class="flex flex-col items-center space-y-1">
+          <span>尚未註冊？</span>
+          <a href="{% url 'register' %}" class="">
+            <span class="text-cyan-400">註冊</span>
+          </a>
         </div>
       </div>
     </div>
@@ -72,63 +68,94 @@
 
   {% else %}
   <!-- 註冊 -->
-  <div class="container">
-    <div class="layout__box">
-      <div class="layout__boxHeader">
-        <div class="layout__boxTitle">
-          <h3>ChatGo</h3>
+  <div class="py-2 sm:py-8 flex justify-center">
+    <div
+      class="w-11/12 sm:w-5/12 border border-gray-800 rounded-lg overflow-hidden"
+    >
+      <div class="py-2 px-4 bg-teal-600">
+        <div class="text-center">
+          <span>ChatGo</span>
         </div>
       </div>
 
-      <div class="layout__body">
-        <h2 class="auth__tagline">使用者註冊</h2>
-        <form class="form" action="" method="POST">
+      <div class="flex flex-col space-y-2 bg-gray-700 px-10 py-4">
+        <span class="text-center text-cyan-400 text-[1.1rem]">使用者註冊</span>
+        <span class="text-rose-500">{{sigin_message}}</span>
+        <form class="space-y-6" action="" method="POST">
           {% csrf_token %}
 
-          <!--  -->
-          {% for field in form %}
-          <div class="form__group form__group">
-            <label for="room_name">{{field.label}}</label>
-            <!-- <input
+          <!-- 使用內建的表單 -->
+          <!-- {% for field in form %}
+          <div>
+            <label>{{field.label}}</label>
+            <div class="relative rounded-md flex flex-col text-gray-300 py-2">
+              {{field}}
+            </div>
+          </div>
+          {% endfor %} -->
+
+          <div class="flex flex-col space-y-2">
+            <label for="username">帳號</label>
+            <input
               id="username"
               name="username"
               type="text"
-              placeholder="Account / 帳號"
-            /> -->
-            {{field}}
+              placeholder="Account / 使用者帳號"
+              class="placeholder:text-[0.9rem] bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
+            />
           </div>
-          {% endfor %}
+          <div class="flex flex-col space-y-2">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Account / Email "
+              class="placeholder:text-[0.9rem] bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
+            />
+          </div>
+          <div class="flex flex-col space-y-2">
+            <label for="password1">密碼</label>
+            <input
+              id="password1"
+              name="password1"
+              type="password"
+              placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+              class="bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
+            />
+          </div>
+          <div class="flex flex-col space-y-2">
+            <label for="password2">確認密碼</label>
+            <input
+              id="password2"
+              name="password2"
+              type="password"
+              placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+              class="bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
+            />
+          </div>
 
-          <button class="btn btn--main" type="submit">
-            <svg
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
-              viewBox="0 0 32 32"
+          <div class="text-center pt-4">
+            <button
+              class="border border-cyan-400 text-cyan-400 rounded-md px-4 py-1 cursor-pointer hover:border-cyan-300 hover:text-cyan-300 w-full"
+              type="submit"
             >
-              <title>Register</title>
-              <path
-                d="M27 12h-1v-2c0-5.514-4.486-10-10-10s-10 4.486-10 10v2h-1c-0.553 0-1 0.447-1 1v18c0 0.553 0.447 1 1 1h22c0.553 0 1-0.447 1-1v-18c0-0.553-0.447-1-1-1zM8 10c0-4.411 3.589-8 8-8s8 3.589 8 8v2h-16v-2zM26 30h-20v-16h20v16z"
-              ></path>
-              <path
-                d="M15 21.694v4.306h2v-4.306c0.587-0.348 1-0.961 1-1.694 0-1.105-0.895-2-2-2s-2 0.895-2 2c0 0.732 0.413 1.345 1 1.694z"
-              ></path>
-            </svg>
-
-            註冊
-          </button>
+              <span>註冊</span>
+            </button>
+          </div>
         </form>
 
-        <div class="auth__action">
-          <p>已註冊？</p>
-          <a href="{% url 'login' %}" class="btn btn--link">登入</a>
+        <div class="flex flex-col items-center space-y-1">
+          <span>已註冊？</span>
+          <a href="{% url 'login' %}">
+            <span class="text-cyan-400">登入</span>
+          </a>
         </div>
       </div>
     </div>
   </div>
 
   {% endif %}
-</main>
+</section>
 
 {% endblock content %}
