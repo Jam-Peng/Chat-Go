@@ -185,6 +185,7 @@ def updateRoom(request, pk):
     form = RoomForm(instance=room)     # 將原始的資料增加回到表單上
     topics = Topic.objects.all()       # 加入樣式，所以改寫取得topic資料方式
     
+    old_topic = Topic.objects.get(name=room.topic)   # 原本的主題
 
     # 使用者判斷 - 必須為使用者建立的物件才可以進行修改
     if request.user != room.host:
@@ -195,6 +196,8 @@ def updateRoom(request, pk):
         topic, created = Topic.objects.get_or_create(name=topic_name)    # 建立一個新的或取舊的 Topic 物件
 
         # 更新聊天室的值
+        if topic != old_topic:           # 如果新的主題和舊的主題不一樣，就先進行刪除舊的
+            old_topic.delete()
         room.topic= topic
         room.name = request.POST.get('name')
         room.description = request.POST.get('description')
@@ -214,6 +217,7 @@ def updateRoom(request, pk):
 @login_required(login_url='/login')
 def deleteRoom(request, pk):
     room = Room.objects.get(id=pk)
+    topic = Topic.objects.get(name=room.topic)
 
     # 使用者判斷 - 必須為使用者建立的物件才可以進行刪除
     if request.user != room.host:
@@ -221,6 +225,7 @@ def deleteRoom(request, pk):
     
     if request.method == 'POST':
         room.delete()
+        topic.delete()
         return redirect('home')
     return render(request, 'base/delete.html', {'obj': room})
 
