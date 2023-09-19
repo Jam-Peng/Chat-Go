@@ -1,25 +1,8 @@
-// const dropdownButton = document.querySelector("#dropdown_button");
-// const dropdownMenu = document.querySelector(".dropdown_menu");
+const dropdownButton = document.querySelector("#dropdown-button");
+const dropdownMenu = document.querySelector(".dropdown-menu");
 
-// if (dropdownButton) {
-//   dropdownButton.addEventListener("click", (e) => {
-//     // e.preventDefault();
-//     dropdownMenu.classList.toggle("show");
-//   });
-// }
-
-// Upload Image
-const photoInput = document.querySelector("#avatar");
-const photoPreview = document.querySelector("#preview-avatar");
-if (photoInput)
-  photoInput.onchange = () => {
-    const [file] = photoInput.files;
-    if (file) {
-      photoPreview.src = URL.createObjectURL(file);
-    }
-  };
-
-// Scroll to Bottom
-const conversationThread = document.querySelector(".room__box");
-if (conversationThread)
-  conversationThread.scrollTop = conversationThread.scrollHeight;
+if (dropdownButton) {
+  dropdownButton.addEventListener("click", (e) => {
+    dropdownMenu.classList.toggle("show");
+  });
+}
