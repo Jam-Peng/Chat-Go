@@ -119,18 +119,31 @@
                   {% endfor %}
                 </div>
               </div>
+
               <!-- 使用者登入才可留言 -->
               {% if request.user.is_authenticated %}
               <div>
                 <form action="" method="POST">
                   {% csrf_token %}
-
-                  <input
-                    type="text"
-                    name="body"
-                    placeholder="留言 ..."
-                    class="w-full focus:outline-none px-4 py-2 text-slate-800"
-                  />
+                  <div class="relative flex w-full flex-wrap items-center">
+                    <input
+                      type="text"
+                      name="body"
+                      placeholder="留言 ..."
+                      class="w-full focus:outline-none pl-12 py-2 text-slate-800"
+                    />
+                    <button
+                      type="submit"
+                      class="absolute z-30 left-4 text-cyan-400"
+                    >
+                      <i class="material-icons text-[1.4rem] flex"> send </i>
+                    </button>
+                    <div
+                      class="absolute z-30 right-7 text-rose-400 font-medium"
+                    >
+                      {{room_message}}
+                    </div>
+                  </div>
                 </form>
               </div>
               {% endif %}

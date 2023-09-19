@@ -26,7 +26,9 @@
           {% csrf_token %}
 
           <div class="flex flex-col space-y-2">
-            <label for="username">帳號</label>
+            <label for="username">
+              <i class="material-icons text-[1.8rem]"> person_outline </i>
+            </label>
             <input
               id="username"
               name="email"
@@ -36,7 +38,9 @@
             />
           </div>
           <div class="flex flex-col space-y-2">
-            <label for="password">密碼</label>
+            <label for="password">
+              <i class="material-icons text-[1.8rem]"> lock_outline </i>
+            </label>
             <input
               id="password"
               name="password"
@@ -56,7 +60,7 @@
           </div>
         </form>
 
-        <div class="flex flex-col items-center space-y-1">
+        <div class="flex flex-row items-center justify-center space-x-2 pt-2">
           <span>尚未註冊？</span>
           <a href="{% url 'register' %}" class="">
             <span class="text-cyan-400">註冊</span>
@@ -95,27 +99,33 @@
           {% endfor %} -->
 
           <div class="flex flex-col space-y-2">
-            <label for="username">帳號</label>
+            <label for="username">
+              <i class="material-icons text-[1.8rem]"> person_outline </i>
+            </label>
             <input
               id="username"
               name="username"
               type="text"
-              placeholder="Account / 使用者帳號"
+              placeholder="Account / 帳號"
               class="placeholder:text-[0.9rem] bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
             />
           </div>
           <div class="flex flex-col space-y-2">
-            <label for="email">Email</label>
+            <label for="email">
+              <i class="material-icons text-[1.8rem]"> mail_outline </i>
+            </label>
             <input
               id="email"
               name="email"
               type="email"
-              placeholder="Account / Email "
+              placeholder="Email / 信箱"
               class="placeholder:text-[0.9rem] bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
             />
           </div>
           <div class="flex flex-col space-y-2">
-            <label for="password1">密碼</label>
+            <label for="password1">
+              <i class="material-icons text-[1.8rem]"> lock_outline </i>
+            </label>
             <input
               id="password1"
               name="password1"
@@ -125,7 +135,9 @@
             />
           </div>
           <div class="flex flex-col space-y-2">
-            <label for="password2">確認密碼</label>
+            <label for="password2">
+              <i class="material-icons text-[1.8rem]"> lock_reset </i>
+            </label>
             <input
               id="password2"
               name="password2"
@@ -145,7 +157,7 @@
           </div>
         </form>
 
-        <div class="flex flex-col items-center space-y-1">
+        <div class="flex flex-row items-center justify-center space-x-2 pt-2">
           <span>已註冊？</span>
           <a href="{% url 'login' %}">
             <span class="text-cyan-400">登入</span>

@@ -107,19 +107,26 @@ def home(request):
 
 def room(request, pk):
     room = Room.objects.get(id=pk)
-    room_messages = room.message_set.all()     # 取得當前聊天室中所有訊息
-    participants = room.participants.all()     # 取得所有當前聊天室中參與聊天的參與者
+    room_messages = room.message_set.all()        # 取得當前聊天室中所有訊息
+    participants = room.participants.all()        # 取得所有當前聊天室中參與聊天的參與者
 
+    room_message = ''
     if request.method == 'POST':
-        message = Message.objects.create(
-            user = request.user,
-            room = room,
-            body = request.POST.get('body')
-        )
-        room.participants.add(request.user)    # 只要留言就將使用者加到參與者區域
-        return redirect('room', pk=room.id)    # 建立完留言重新導回當前聊天室 - 重整整理渲染頁面
+        body = request.POST.get('body')
+
+        if body is '':
+            room_message = '無法傳送空白留言'
+        else:
+            message = Message.objects.create(
+                user = request.user,
+                room = room,
+                body = request.POST.get('body')
+            )
+
+            room.participants.add(request.user)    # 只要留言就將使用者加到參與者區域
+            return redirect('room', pk=room.id)    # 建立完留言重新導回當前聊天室 - 重整整理渲染頁面
     
-    context = {'room': room, 'room_messages': room_messages, 'participants': participants}
+    context = {'room': room, 'room_messages': room_messages, 'participants': participants, 'room_message': room_message}
     return render(request, 'base/room.html', context)
 
 
