@@ -1,11 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db.models import Q
-# from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.forms import UserCreationForm
-# from django.contrib import messages                        # 傳遞訊息套件
 from .models import Room, Topic, Message, User
 from .forms import RoomForm, UserForm, MyUserCreationForm
 
@@ -45,18 +42,6 @@ def logoutUser(request):
 
 def registerPage(request):
     form = MyUserCreationForm()
-
-    # 使用自定義表單 - 缺點在html的標單樣式不好修改
-    # if request.method == 'POST':
-    #     form = MyUserCreationForm(request.POST)
-    #     if form.is_valid():
-    #         user = form.save(commit=False)
-    #         user.username = user.username.lower()
-    #         user.save()
-    #         login(request, user)     # 註冊後直接進行登入
-    #         return redirect('home')
-    #     else:
-    #         messages.error(request, "帳號已註冊")
 
     sigin_message = ""
     if request.method == 'POST':
@@ -132,8 +117,8 @@ def room(request, pk):
 
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
-    rooms = user.room_set.all()                # 取得當前使用者建立的聊天室
-    room_messages = user.message_set.all()     # 取得當前使用者建立的訊息
+    rooms = user.room_set.all()                    # 取得當前使用者建立的聊天室
+    room_messages = user.message_set.all()         # 取得當前使用者建立的訊息
     topics = Topic.objects.all()
 
     context = {'user': user, 'rooms': rooms, 'room_messages': room_messages, 'topics': topics}
@@ -159,11 +144,11 @@ def deleteMessage(request, pk):
 @login_required(login_url='/login')
 def createRoom(request):
     form = RoomForm()
-    topics = Topic.objects.all()       # 加入自定義樣式，所以改寫取得 topic值方式
+    topics = Topic.objects.all()                   # 加入自定義樣式，所以改寫取得 topic值方式
 
     if request.method == 'POST':
-        topic_name = request.POST.get('topic')                         # 取 from表單的 name屬性值
-        topic, created = Topic.objects.get_or_create(name=topic_name)  # 建立一個新的或取舊的 Topic 物件
+        topic_name = request.POST.get('topic')                            # 取 from表單的 name屬性值
+        topic, created = Topic.objects.get_or_create(name=topic_name)     # 建立一個新的或取舊的 Topic 物件
 
         # 建立聊天室
         Room.objects.create(
@@ -173,12 +158,6 @@ def createRoom(request):
             description = request.POST.get('description'),      # 這裡的 description是指取得 {{form.description}}
         )
 
-        # 因為不使用原本模板的樣式做建立，所以這段都不需要，必須重新取回每一個發送的值
-        # form = RoomForm(request.POST)      
-        # if form.is_valid():
-        #     room = form.save(commit=False)
-        #     room.host = request.user
-        #     room.save()
         return redirect('home')
 
     context = {'form': form, 'topics': topics}
@@ -188,9 +167,9 @@ def createRoom(request):
 # 更新聊天室資料
 @login_required(login_url='/login')
 def updateRoom(request, pk):
-    room = Room.objects.get(id=pk)     # 取得特定 id 的聊天室
-    form = RoomForm(instance=room)     # 將原始的資料增加回到表單上
-    topics = Topic.objects.all()       # 加入樣式，所以改寫取得topic資料方式
+    room = Room.objects.get(id=pk)                   # 取得特定 id 的聊天室
+    form = RoomForm(instance=room)                   # 將原始的資料增加回到表單上
+    topics = Topic.objects.all()                     # 加入樣式，所以改寫取得topic資料方式
     
     old_topic = Topic.objects.get(name=room.topic)   # 原本的主題
 
@@ -203,17 +182,13 @@ def updateRoom(request, pk):
         topic, created = Topic.objects.get_or_create(name=topic_name)    # 建立一個新的或取舊的 Topic 物件
 
         # 更新聊天室的值
-        if topic != old_topic:           # 如果新的主題和舊的主題不一樣，就先進行刪除舊的
+        if topic != old_topic:                       # 如果新的主題和舊的主題不一樣，就先進行刪除舊的
             old_topic.delete()
         room.topic= topic
         room.name = request.POST.get('name')
         room.description = request.POST.get('description')
         room.save()
 
-        # 因為不使用原本模板的樣式做更新，所以下面這段都不需要，必須重新取回每一個發送的值
-        # form = RoomForm(request.POST, instance=room)   
-        # if form.is_valid():
-        #     form.save()
         return redirect('home')
 
     context = {'form': form, 'topics': topics, 'room': room}
@@ -242,13 +217,6 @@ def deleteRoom(request, pk):
 def updateUser(request):
     user = request.user                     # 取得當前使用者
     form = UserForm(instance=user)          # 將當前使用者資料加到表單上
-
-    # 使用模組的表單更新
-    # if request.method == 'POST':
-    #     form = UserForm(request.POST, request.FILES, instance=user)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('user-profile', pk=user.id)
 
     # 使用自定義的表單取值更新
     if request.method == 'POST':

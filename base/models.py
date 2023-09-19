@@ -1,5 +1,4 @@
 from django.db import models
-# from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 
 
@@ -13,6 +12,7 @@ class User(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
 
 # 主題
 class Topic(models.Model):
@@ -33,7 +33,7 @@ class Room(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-updated', '-created']  # 使用更新和建立的時間來做排序
+        ordering = ['-updated', '-created']    # 使用更新和建立的時間來做排序
 
     def __str__(self):
         return str(self.name)
@@ -51,4 +51,4 @@ class Message(models.Model):
         ordering = ['-updated', '-created']  
 
     def __str__(self):
-        return self.body[:50]  # 取前50個字的訊息 
+        return self.body[:50]

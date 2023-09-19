@@ -88,16 +88,6 @@
         <form class="space-y-6" action="" method="POST">
           {% csrf_token %}
 
-          <!-- 使用內建的表單 -->
-          <!-- {% for field in form %}
-          <div>
-            <label>{{field.label}}</label>
-            <div class="relative rounded-md flex flex-col text-gray-300 py-2">
-              {{field}}
-            </div>
-          </div>
-          {% endfor %} -->
-
           <div class="flex flex-col space-y-2">
             <label for="username">
               <i class="material-icons text-[1.8rem]"> person_outline </i>
