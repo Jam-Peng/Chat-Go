@@ -3,7 +3,7 @@ Django==4.2.5
 django-cors-headers==4.2.0
 djangorestframework==3.14.0
 gunicorn==21.2.0
-mysqlclient @ file:///Users/ktietz/demo/mc3/conda-bld/mysqlclient_1630566037602/work
+mysqlclient==2.1.1
 packaging==23.1
 Pillow==10.0.1
 protobuf==4.21.12
