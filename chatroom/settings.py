@@ -87,10 +87,23 @@ WSGI_APPLICATION = "chatroom.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# 本地端
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
+
+# 遠端
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "chatgo",
+        "USER": "pengroot",
+        "PASSWORD": "11111111",
+        "HOST": "chatgo.ccftqa8uxqsd.us-east-1.rds.amazonaws.com",
+        "PORT": "3306",
     }
 }
 
