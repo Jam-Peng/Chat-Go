@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-ke!$-62sl+rdxp!a2^f@lkos62uo+jmmru@xwaugml@38$d5f@"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*', 'https://chatgo-55d9.onrender.com']
 
@@ -60,6 +61,9 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
+    # 新增收集靜態文件的中介器
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 
 ]
 
@@ -152,7 +156,11 @@ STATICFILES_DIRS = [
 # 使用靜態文件中的照片設定
 MEDIA_ROOT = BASE_DIR / 'static/images'
 
-# STATIC_ROOT = 
+
+# 部署時必須收集的靜態文件收集設定
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_STORAGE = "whitenoise.storage.StaticFilesStorage"    # 進行文件的壓縮
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
