@@ -5,7 +5,7 @@ djangorestframework==3.14.0
 gunicorn==21.2.0
 mysqlclient==2.1.1
 packaging==23.1
-Pillow==10.0.1
+Pillow==9.5.0
 protobuf==4.21.12
 PyMySQL==1.1.0
 pytz==2023.3.post1
