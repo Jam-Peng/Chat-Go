@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-ke!$-62sl+rdxp!a2^f@lkos62uo+jmmru@xwaugml@38$d5f@"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*', 'https://chatgo-55d9.onrender.com']
 
@@ -154,6 +154,7 @@ STATICFILES_DIRS = [
 ]
 
 # 使用靜態文件中的照片設定
+# MEDIA_ROOT = BASE_DIR / 'static/images'
 MEDIA_ROOT = BASE_DIR / 'static/images'
 
 
