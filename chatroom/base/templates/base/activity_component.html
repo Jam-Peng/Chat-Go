@@ -1,0 +1,58 @@
+<div class="border border-gray-800 rounded-lg overflow-hidden">
+  <div class="py-2 px-4 bg-teal-600">
+    <h2>最新留言</h2>
+  </div>
+
+  <div class="relative overflow-y-auto h-[670px]">
+    {% for message in room_messages %}
+    <div class="bg-gray-700 p-4">
+      <div class="p-4 space-y-2 border-2 border-gray-500 rounded-lg">
+        <div class="flex justify-between">
+          <div class="flex items-center space-x-2">
+            <div class="border rounded-full border-cyan-400 w-[2rem]">
+              <a href="{% url 'user-profile' message.user.id %}">
+                <img
+                  src="{{message.user.avatar.url}}"
+                  class="border rounded-full"
+                />
+              </a>
+            </div>
+
+            <div class="text-[0.75rem] flex flex-col">
+              <a href="{% url 'user-profile' message.user.id %}" class="">
+                <span class="text-cyan-400">{{message.user.username}}</span>
+              </a>
+              <span>{{message.created|timesince}} ago</span>
+            </div>
+          </div>
+
+          {% if request.user == message.user %}
+          <div>
+            <a href="{% url 'delete-message' message.id %}">
+              <i class="material-icons text-[1.4rem] text-gray-400"> clear </i>
+            </a>
+          </div>
+          {% endif %}
+          <!--  -->
+        </div>
+
+        <div class="text-[.88rem] space-y-2">
+          <div>
+            <span>回覆 -</span>
+            <a href="{% url 'room' message.room.id %}" class="text-cyan-400">
+              {{message.room}}
+            </a>
+          </div>
+
+          <div
+            class="p-2 border border-gray-800 rounded-md bg-gray-800 sm:truncate"
+          >
+            <span>{{message.body}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <!--  -->
+</div>

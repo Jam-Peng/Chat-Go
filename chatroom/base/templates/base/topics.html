@@ -1,0 +1,71 @@
+{% extends 'main.html' %}
+<!--  -->
+{% block title %} ChatGo - 主題搜尋 {% endblock title%}
+
+<!--  -->
+{% block content %}
+<section>
+  <div class="py-2 sm:py-8 flex justify-center">
+    <div
+      class="w-11/12 sm:w-6/12 border border-gray-800 rounded-lg overflow-hidden"
+    >
+      <div class="py-2 px-4 bg-teal-600">
+        <div class="flex items-center space-x-2">
+          <a href="{% url 'home' %}" class="flex">
+            <i class="material-icons text-[1.4rem]"> west </i>
+          </a>
+          <span>回首頁</span>
+        </div>
+      </div>
+
+      <div
+        class="bg-gray-700 px-4 py-6 space-y-2 relative overflow-y-auto h-[670px] sm:h-[640px]"
+      >
+        <form class="" method="GET">
+          <div class="relative flex flex-wrap justify-center">
+            <button
+              class="flex items-center rounded-l bg-slate-500 pl-2 py-1.5"
+              type="submit"
+            >
+              <i class="material-icons text-[1.8rem]"> search </i>
+            </button>
+
+            <input
+              name="q"
+              type="text"
+              class="w-10/12 sm:w-11/12 placeholder:text-[0.9rem] bg-slate-500 focus:outline-none rounded-r px-1"
+              placeholder="搜尋主題 ..."
+            />
+          </div>
+        </form>
+
+        <ul class="p-2">
+          <li
+            class="py-3 border-b border-gray-600 flex justify-between hover:text-cyan-400"
+          >
+            <a href="{%url 'topics' %}" class="">
+              <span>全部</span>
+            </a>
+            <span class="px-2 bg-gray-500 border border-gray-500 rounded-lg">
+              {{topics.count}}
+            </span>
+          </li>
+          {% for topic in topics %}
+          <li
+            class="py-3 border-b border-gray-600 flex justify-between hover:text-cyan-400"
+          >
+            <a href="{% url 'home' %}?q={{topic.name}}">
+              <span>{{topic.name}}</span>
+            </a>
+            <span class="px-2 bg-gray-500 border border-gray-500 rounded-lg">
+              {{topic.room_set.all.count}}
+            </span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

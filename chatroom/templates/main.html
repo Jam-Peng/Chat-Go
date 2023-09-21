@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+    <link
+      rel="shortcut icon"
+      href="{% static 'images/chatgo_favicon.ico' %}"
+      type="image/x-icon"
+    />
+    <!-- Material Icons -->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="{% static 'styles/main.min.css' %}" />
+  </head>
+
+  <body class="bg-gray-800 text-gray-300 h-full">
+    <div class="container mx-auto text-[0.95rem]">
+      {% include 'navbar.html' %}
+
+      <!--  -->
+      {% block content %}
+      <!-- 顯示內容 -->
+      {% endblock %}
+    </div>
+    <!-- <script src="{% static 'js/script.js' %}"></script> -->
+    <script>
+      const dropdownButton = document.querySelector("#dropdown-button");
+      const dropdownMenu = document.querySelector(".dropdown-menu");
+
+      if (dropdownButton) {
+        dropdownButton.addEventListener("click", (e) => {
+          dropdownMenu.classList.toggle("show");
+        });
+      }
+    </script>
+  </body>
+</html>

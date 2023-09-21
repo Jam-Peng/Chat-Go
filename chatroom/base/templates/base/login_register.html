@@ -1,0 +1,163 @@
+{% extends 'main.html' %}
+<!--  -->
+{% block title %} 登入 {% endblock title %}
+<!--  -->
+
+{% block content %}
+
+<section>
+  {% if page == 'login' %}
+
+  <!-- 登入 -->
+  <div class="py-2 sm:py-8 flex justify-center">
+    <div
+      class="w-11/12 sm:w-5/12 border border-gray-800 rounded-lg overflow-hidden"
+    >
+      <div class="py-2 px-4 bg-teal-600">
+        <div class="text-center">
+          <span>ChatGo</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col space-y-2 bg-gray-700 px-10 py-4">
+        <span class="text-center text-cyan-400 text-[1.1rem]">使用者登入</span>
+        <span class="text-rose-500">{{login_message}}</span>
+        <form class="space-y-6" action="" method="POST">
+          {% csrf_token %}
+
+          <div class="flex flex-col space-y-2">
+            <label for="username">
+              <i class="material-icons text-[1.8rem]"> person_outline </i>
+            </label>
+            <input
+              id="username"
+              name="email"
+              type="email"
+              placeholder="Account / Email 登入"
+              class="placeholder:text-[0.9rem] bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
+            />
+          </div>
+          <div class="flex flex-col space-y-2">
+            <label for="password">
+              <i class="material-icons text-[1.8rem]"> lock_outline </i>
+            </label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+              class="bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
+            />
+          </div>
+
+          <div class="text-center pt-4">
+            <button
+              class="border border-cyan-400 text-cyan-400 rounded-md px-4 py-1 cursor-pointer hover:border-cyan-300 hover:text-cyan-300 w-full"
+              type="submit"
+            >
+              <span>登入</span>
+            </button>
+          </div>
+        </form>
+
+        <div class="flex flex-row items-center justify-center space-x-2 pt-2">
+          <span>尚未註冊？</span>
+          <a href="{% url 'register' %}" class="">
+            <span class="text-cyan-400">註冊</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% else %}
+  <!-- 註冊 -->
+  <div class="py-2 sm:py-8 flex justify-center">
+    <div
+      class="w-11/12 sm:w-5/12 border border-gray-800 rounded-lg overflow-hidden"
+    >
+      <div class="py-2 px-4 bg-teal-600">
+        <div class="text-center">
+          <span>ChatGo</span>
+        </div>
+      </div>
+
+      <div class="flex flex-col space-y-2 bg-gray-700 px-10 py-4">
+        <span class="text-center text-cyan-400 text-[1.1rem]">使用者註冊</span>
+        <span class="text-rose-500">{{sigin_message}}</span>
+        <form class="space-y-6" action="" method="POST">
+          {% csrf_token %}
+
+          <div class="flex flex-col space-y-2">
+            <label for="username">
+              <i class="material-icons text-[1.8rem]"> person_outline </i>
+            </label>
+            <input
+              id="username"
+              name="username"
+              type="text"
+              placeholder="Account / 帳號"
+              class="placeholder:text-[0.9rem] bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
+            />
+          </div>
+          <div class="flex flex-col space-y-2">
+            <label for="email">
+              <i class="material-icons text-[1.8rem]"> mail_outline </i>
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="Email / 信箱"
+              class="placeholder:text-[0.9rem] bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
+            />
+          </div>
+          <div class="flex flex-col space-y-2">
+            <label for="password1">
+              <i class="material-icons text-[1.8rem]"> lock_outline </i>
+            </label>
+            <input
+              id="password1"
+              name="password1"
+              type="password"
+              placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+              class="bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
+            />
+          </div>
+          <div class="flex flex-col space-y-2">
+            <label for="password2">
+              <i class="material-icons text-[1.8rem]"> lock_reset </i>
+            </label>
+            <input
+              id="password2"
+              name="password2"
+              type="password"
+              placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+              class="bg-slate-500 focus:outline-none rounded-md px-2 py-1.5"
+            />
+          </div>
+
+          <div class="text-center pt-4">
+            <button
+              class="border border-cyan-400 text-cyan-400 rounded-md px-4 py-1 cursor-pointer hover:border-cyan-300 hover:text-cyan-300 w-full"
+              type="submit"
+            >
+              <span>註冊</span>
+            </button>
+          </div>
+        </form>
+
+        <div class="flex flex-row items-center justify-center space-x-2 pt-2">
+          <span>已註冊？</span>
+          <a href="{% url 'login' %}">
+            <span class="text-cyan-400">登入</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endif %}
+</section>
+
+{% endblock content %}

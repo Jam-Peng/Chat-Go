@@ -1,0 +1,45 @@
+{% for room in rooms %}
+<div class="px-6 py-1 sm:p-4">
+  <div class="border border-gray-700 rounded-lg bg-gray-700">
+    <div class="px-4 py-2 space-y-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <div class="border rounded-full border-cyan-400 w-[2rem]">
+            <a href="{% url 'user-profile' room.host.id %}">
+              <img src="{{room.host.avatar.url}}" class="border rounded-full" />
+            </a>
+          </div>
+          <div>
+            <a href="{% url 'user-profile' room.host.id %}" class="">
+              <span class="text-cyan-400">{{room.host.username}}</span>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <span class="text-[0.88rem]">{{room.created|timesince}} ago</span>
+        </div>
+      </div>
+
+      <div class="border-b border-gray-600 flex flex-col space-y-3 pb-2">
+        <a href="{% url 'room' room.id %}">
+          <span class="text-[1.2rem] hover:text-cyan-400">{{room.name}}</span>
+        </a>
+        <span class="text-gray-400 sm:truncate">{{room.description}}</span>
+      </div>
+    </div>
+
+    <div class="px-4 py-2 flex items-center justify-between text-[0.88rem]">
+      <a href="{% url 'room' room.id %}" class="flex items-center space-x-2">
+        <i class="material-icons text-[1.5rem] text-cyan-400">
+          people_outline
+        </i>
+        <span>{{room.participants.all.count}} 人參與</span>
+      </a>
+      <div class="px-3 py-1 bg-slate-500 border border-slate-500 rounded-md">
+        <span>{{room.topic.name}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
