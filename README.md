@@ -78,3 +78,9 @@
 - `PyMySQL`
 - `whitenoise`
 - `tailwind`
+
+
+### 部署
+- 伺服器部署 `render`
+- 資料庫部署 `aws-RDS`
+
