@@ -37,7 +37,7 @@
   App Home
 </p>
 <center>
-<img src="./assets/App_Home.jpg" width='60%'>
+<img src="./assets/App_Home.jpg" width='65%'>
 </center>
 </td> 
 <td width="50%">
@@ -46,7 +46,7 @@
   App Room 
 </p>
 <center>
-<img src="./assets/App_Rome.jpg" width='60%'>
+<img src="./assets/App_Rome.jpg" width='65%'>
 </center>
 </td>
 </tr>
