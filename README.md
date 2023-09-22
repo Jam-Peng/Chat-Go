@@ -7,7 +7,7 @@
 
 > ⚠ Demo Website : https://chatgo-55d9.onrender.com
 
->⚠ 網頁執行時會比較慢，由於將資料庫部署 Aws 選擇較低的 CPU 配置，影響應用程序與數據庫查詢的時間增加，從而降低網頁加載速度。
+>⚠ 網頁執行時會比較慢，由於將資料庫部署 Aws 選擇較低的 CPU 配置，影響應用程序與數據庫查詢的時間增加，降低網頁加載速度。
 
 ###  Preview :
 
@@ -37,7 +37,7 @@
   App Home
 </p>
 <center>
-<img src="./assets/App_Home.jpg" width='65%'>
+<img src="./assets/App_Home.jpg" width='70%'>
 </center>
 </td> 
 <td width="50%">
@@ -46,7 +46,7 @@
   App Room 
 </p>
 <center>
-<img src="./assets/App_Rome.jpg" width='65%'>
+<img src="./assets/App_Rome.jpg" width='70%'>
 </center>
 </td>
 </tr>
@@ -58,7 +58,7 @@
 以聊天室為主題的公開討論網站。
 
 ### 設計概念
-希望給朋友或家人提供一個可以在線上互相分享資訊、共同討論話題的交流平台。透過聊天室，根據特定的主題或興趣來認識新朋友、與現有朋友保持聯繫，並參與各種社交活動。<br>
+希望給朋友或家人提供一個可以在線上互相分享資訊、共同討論話題的交流平台。透過聊天室，根據特定的主題或興趣來認識新朋友、與現有朋友保持聯繫。<br>
 
 
 #
