@@ -55,7 +55,8 @@
 #
 
 ## 專案說明
-以聊天室為主題的公開討論與分享網站。
+- 以聊天室為主題的公開討論與分享網站。
+- <a href="https://drive.google.com/file/d/1B8IQ98p8cBuQkgFko3iGy3jOl1jmXhWS/view?usp=sharing" target="_blank">線上完整專案說明</a>
 
 ### 設計概念
 希望給朋友或家人提供一個可以在線上互相分享資訊、共同討論話題的交流平台。透過聊天室，根據特定的主題或興趣來認識新朋友、與現有朋友保持聯繫。<br>
