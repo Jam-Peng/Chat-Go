@@ -36,11 +36,11 @@
               <div class="flex items-center justify-between">
                 <span class="text-[1.2rem] text-cyan-400"> {{room.name}} </span>
                 <span class="text-[0.85rem]"
-                  >{{room.created|timesince}} ago</span
-                >
+                  >{{room.created|date:"Y-m-d H:i"}}
+                </span>
               </div>
               <div class="space-y-1">
-                <span class="text-[.88rem] text-gray-500">樓主</span>
+                <span class="text-[.88rem] text-gray-500">版主</span>
                 <div class="flex items-center space-x-2">
                   <div class="border rounded-full border-cyan-400 w-[2.2rem]">
                     <a href="{% url 'user-profile' room.host.id %}" class="">
@@ -99,7 +99,7 @@
                           </div>
 
                           <span class="text-[0.85rem]">
-                            {{message.created|timesince}} ago
+                            {{message.created|date:"m-d H:i"}}
                           </span>
                         </div>
                       </div>

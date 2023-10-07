@@ -1,6 +1,6 @@
 
 <div align="center">
-<img width="20%" src="./static/images/logo.png">
+<img width="20%" src="./static/images/chatgo_logo.png">
 
 # ChatGo
 </div>

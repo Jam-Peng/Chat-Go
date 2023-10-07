@@ -38,7 +38,7 @@
                 <a href="{% url 'user-profile' message.user.id %}" class="">
                   <span class="text-cyan-400">{{message.user.username}}</span>
                 </a>
-                <span>{{message.created|timesince}} ago</span>
+                <span>{{message.created|date:"Y-m-d H:i"}}</span>
               </div>
             </div>
 
