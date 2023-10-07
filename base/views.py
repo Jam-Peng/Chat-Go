@@ -50,9 +50,9 @@ def registerPage(request):
         password1 = request.POST.get("password1")
         password2 = request.POST.get("password2")
 
-        if username == '' and email == '' and password1 == '' and password2 == '':
+        if username == '' or email == '' or password1 == '' or password2 == '':
             sigin_message = "請正確填寫資料"
-        if password1 != password2:
+        elif password1 != password2:
             sigin_message = "請確認密碼相同"
         elif User.objects.filter(email = email):
             sigin_message = "帳號已註冊"
