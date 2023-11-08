@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    
+
     'base.apps.BaseConfig',
 
     # 使用 API需要設定應用程式
@@ -72,7 +72,7 @@ ROOT_URLCONF = "chatroom.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [ BASE_DIR / 'templates' ],
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -100,16 +100,16 @@ DATABASES = {
 }
 
 # 遠端
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "chatgo",
-        "USER": "pengroot",
-        "PASSWORD": "11111111",
-        "HOST": "chatgo.ccftqa8uxqsd.us-east-1.rds.amazonaws.com",
-        "PORT": "3306",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": "chatgo",
+#         "USER": "pengroot",
+#         "PASSWORD": "11111111",
+#         "HOST": "chatgo.ccftqa8uxqsd.us-east-1.rds.amazonaws.com",
+#         "PORT": "3306",
+#     }
+# }
 
 
 # Password validation
