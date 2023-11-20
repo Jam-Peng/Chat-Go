@@ -5,10 +5,6 @@
 # ChatGo
 </div>
 
->⚠ Demo Website : https://chatgo-55d9.onrender.com
-
->⚠ 網頁執行時會比較慢，由於將資料庫部署 Aws 選擇較低的 CPU 配置，影響應用程序與數據庫查詢的時間增加，降低網頁加載速度。
-
 ###  Preview :
 
 <table width="100%"> 
